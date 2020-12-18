@@ -73,3 +73,40 @@ $(document).ready(function(){
     }
     
     checkHour();
+
+    $("#9").on("click", function(){
+        hourNine = JSON.stringify($(".inputNine").val());
+        localStorage.setItem("hourNine", hourNine);
+    })
+    $("#10").on("click", function(){
+        hourTen = JSON.stringify($(".inputTen").val());
+        localStorage.setItem("hourTen", hourTen);
+    })
+    $("#11").on("click", function(){
+        hourEleven = JSON.stringify($(".inputEleven").val());
+        localStorage.setItem("hourEleven", hourEleven);
+    })
+    $("#12").on("click", function(){
+        hourTwelve = JSON.stringify($(".inputTwelve").val());
+        localStorage.setItem("hourTwelve", hourTwelve);
+    })
+    $("#13").on("click", function(){
+        hourThirteen = JSON.stringify($(".inputThirteen").val());
+        localStorage.setItem("hourThirteen", hourThirteen);
+    })
+    $("#14").on("click", function(){
+        hourFourteen = JSON.stringify($(".inputFourteen").val());
+        localStorage.setItem("hourFourteen", hourFourteen);
+    })
+    $("#15").on("click", function(){
+        hourFifteen = JSON.stringify($(".inputFifteen").val());
+        localStorage.setItem("hourFifteen", hourFifteen);
+    })
+    $("#16").on("click", function(){
+        hourSixteen = JSON.stringify($(".inputSixteen").val());
+        localStorage.setItem("hourSixteen", hourSixteen);
+    })
+    $("#17").on("click", function(){
+        hourSeventeen = JSON.stringify($(".inputSeventeen").val());
+        localStorage.setItem("hourSeventeen", hourSeventeen);
+    })
