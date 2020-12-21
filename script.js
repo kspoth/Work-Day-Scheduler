@@ -1,112 +1,86 @@
-$(document).ready(function(){
-   
-    var hour = moment().hour();
-    var hourNine = "";
-    var hourTen = "";
-    var hourEleven = "";
-    var hourTwelve = "";
-    var hourThirteen = "";
-    var hourFourteen = "";
-    var hourFifteen = "";
-    var hourSixteen = "";
-    var hourSeventeen = "";
 
-    
-    $("#currentDay").text(moment().format('MMMM Do YYYY, h:mm a'));
 
-   
-    function checkHour(){
-        if (hour == 9){
-            $(".nine").addClass("present");
-        }
-        if (hour > 9){
-            $(".nine").addClass("past");
-        }
-        if (hour == 10){
-            $(".ten").addClass("present");
-        }
-        if (hour > 10){
-            $(".ten").addClass("past");
-        }
-        if (hour == 11){
-            $(".eleven").addClass("present");
-        }
-        if (hour > 11){
-            $(".eleven").addClass("past");
-        }
-        if (hour == 12){
-            $(".twelve").addClass("present");
-        }
-        if (hour > 12){
-            $(".twelve").addClass("past");
-        }
-        if (hour == 13){
-            $(".one").addClass("present");
-        }
-        if (hour > 13){
-            $(".one").addClass("past");
-        }
-        if (hour == 14){
-            $(".two").addClass("present");
-        }
-        if (hour > 14){
-            $(".two").addClass("past");
-        }
-        if (hour == 15){
-            $(".three").addClass("present");
-        }
-        if (hour > 15){
-            $(".three").addClass("past");
-        }
-        if (hour == 16){
-            $(".four").addClass("present");
-        }
-        if (hour > 16){
-            $(".four").addClass("past");
-        }
-        if (hour == 17){
-            $(".five").addClass("present");
-        }
-        if (hour > 17){
-            $(".five").addClass("past");
-        }
+var currentDay = $("#currentDay");
+var scheduleArea = $(".schedule");
+var timeRow = $(".time-row");
+var currentDate = moment().format("dddd, MMMM Do");
+var currentHour = moment().format("H");
+var toDoItems = [];
+
+
+function startSchedule(){
+
+    timeRow.each(function(){
+    var thisRow = $(this);
+    var thisRowHr = parseInt(thisRow.attr("data-hour"));
+
+    var todoObj = {
+      hour: thisRowHr,
+      text: "",
     }
-    
-    checkHour();
+    toDoItems.push(todoObj);
+  });
+  
+  localStorage.setItem("todos", JSON.stringify(toDoItems)); 
+};
 
-    $("#9").on("click", function(){
-        hourNine = JSON.stringify($(".inputNine").val());
-        localStorage.setItem("hourNine", hourNine);
-    })
-    $("#10").on("click", function(){
-        hourTen = JSON.stringify($(".inputTen").val());
-        localStorage.setItem("hourTen", hourTen);
-    })
-    $("#11").on("click", function(){
-        hourEleven = JSON.stringify($(".inputEleven").val());
-        localStorage.setItem("hourEleven", hourEleven);
-    })
-    $("#12").on("click", function(){
-        hourTwelve = JSON.stringify($(".inputTwelve").val());
-        localStorage.setItem("hourTwelve", hourTwelve);
-    })
-    $("#13").on("click", function(){
-        hourThirteen = JSON.stringify($(".inputThirteen").val());
-        localStorage.setItem("hourThirteen", hourThirteen);
-    })
-    $("#14").on("click", function(){
-        hourFourteen = JSON.stringify($(".inputFourteen").val());
-        localStorage.setItem("hourFourteen", hourFourteen);
-    })
-    $("#15").on("click", function(){
-        hourFifteen = JSON.stringify($(".inputFifteen").val());
-        localStorage.setItem("hourFifteen", hourFifteen);
-    })
-    $("#16").on("click", function(){
-        hourSixteen = JSON.stringify($(".inputSixteen").val());
-        localStorage.setItem("hourSixteen", hourSixteen);
-    })
-    $("#17").on("click", function(){
-        hourSeventeen = JSON.stringify($(".inputSeventeen").val());
-        localStorage.setItem("hourSeventeen", hourSeventeen);
-    })
+function saveIt(){
+  var hourToUpdate = $(this).parent().attr("data-hour");
+  var itemToAdd = (($(this).parent()).children("textarea")).val(); 
+  for (var j = 0; j < toDoItems.length; j++){
+    if (toDoItems[j].hour == hourToUpdate){
+     
+      toDoItems[j].text = itemToAdd;
+    }
+  }
+  localStorage.setItem("todos", JSON.stringify(toDoItems));
+  renderSchedule();
+}
+
+
+function setUpRows(){
+  timeRow.each(function(){
+  var thisRow = $(this);
+  var thisRowHr = parseInt(thisRow.attr("data-hour"));
+
+  if (thisRowHr == currentHour) {
+    thisRow.addClass("present").removeClass("past future");
+  }
+  if (thisRowHr < currentHour) {
+    thisRow.addClass("past").removeClass("present future");
+  }
+  if (thisRowHr > currentHour) {
+    thisRow.addClass("future").removeClass("past present");
+  }
+});
+}
+
+function renderSchedule(){
+  
+  toDoItems = localStorage.getItem("todos");
+  toDoItems = JSON.parse(toDoItems);
+    
+  for (var i = 0; i < toDoItems.length; i++){
+    var itemHour = toDoItems[i].hour;
+    var itemText = toDoItems[i].text; 
+   
+    $("[data-hour=" + itemHour + "]").children("textarea").val(itemText);
+  }
+}
+$(document).ready(function(){
+  setUpRows();
+
+if(!localStorage.getItem("todos")){
+  
+  startSchedule();
+} 
+
+
+currentDay.text(currentDate);
+
+
+renderSchedule();
+
+scheduleArea.on("click", "button", saveIt);
+
+});
