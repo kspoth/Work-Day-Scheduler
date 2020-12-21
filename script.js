@@ -1,5 +1,5 @@
 
-
+//Variables for the functions
 var currentDay = $("#currentDay");
 var scheduleArea = $(".schedule");
 var timeRow = $(".time-row");
@@ -7,7 +7,7 @@ var currentDate = moment().format("dddd, MMMM Do");
 var currentHour = moment().format("H");
 var toDoItems = [];
 
-
+// Function that starts the schecduler
 function startSchedule(){
 
     timeRow.each(function(){
@@ -21,6 +21,7 @@ function startSchedule(){
     toDoItems.push(todoObj);
   });
   
+  //Saves to local storage.
   localStorage.setItem("todos", JSON.stringify(toDoItems)); 
 };
 
@@ -37,7 +38,7 @@ function saveIt(){
   renderSchedule();
 }
 
-
+//Function that allows the rows to change color.
 function setUpRows(){
   timeRow.each(function(){
   var thisRow = $(this);
@@ -55,6 +56,7 @@ function setUpRows(){
 });
 }
 
+//Function that renders the scheduler.
 function renderSchedule(){
   
   toDoItems = localStorage.getItem("todos");
@@ -75,7 +77,7 @@ if(!localStorage.getItem("todos")){
   startSchedule();
 } 
 
-
+//Displays today's date.
 currentDay.text(currentDate);
 
 

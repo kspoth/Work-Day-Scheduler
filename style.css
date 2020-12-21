@@ -70,4 +70,19 @@ textarea{
   transition: all .3s ease-in-out;
 }
 
+/* changes the color of the time rows*/
+.past {
+  background-color: #d3d3d3;
+  color: white;
+}
+
+.present {
+  background-color: #ff6961;
+  color: white;
+}
+
+.future {
+  background-color: #77dd77;
+  color: white;
+}
   
