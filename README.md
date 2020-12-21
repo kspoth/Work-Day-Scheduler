@@ -8,6 +8,9 @@ Using a combination of VS Code, HTML, CSS, Javascript, and Jquery I developed an
 
 ### Pictures of Website Application
 
+![](https://github.com/kspoth/Work-Day-Scheduler/blob/main/Images/Screen%20Shot%202020-12-21%20at%201.50.58%20PM.png?raw=true)
+![](https://github.com/kspoth/Work-Day-Scheduler/blob/main/Images/Screen%20Shot%202020-12-21%20at%201.51.12%20PM.png?raw=true)
+
 ### Built With
 
 - VS Code
